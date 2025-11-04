@@ -4,33 +4,36 @@ import MainLayout from "../../components/layout/MainLayout";
 export default function Landing() {
   return (
     <MainLayout>
-      <div className="max-w-4xl mx-auto text-center">
-        <h1 className="text-5xl font-bold text-gray-800 mb-6">Find Your Perfect Companion</h1>
-        <p className="text-xl text-gray-600 mb-8">
-          Give a loving home to a pet in need. Browse our available animals and start your adoption journey today.
-        </p>
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Every Pet Deserves a Loving Home</h1>
+          <p className="text-lg md:text-xl text-gray-600 mb-8">Meet the wonderful animals waiting to become part of your family</p>
 
-        <div className="flex gap-4 justify-center mb-12">
-          <Link to="/animals" className="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
-            Browse Animals
-          </Link>
-          <Link to="/about" className="bg-gray-200 text-gray-800 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors">
-            Learn More
+          <Link
+            to="/animals"
+            className="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
+          >
+            Meet Our Animals
           </Link>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mt-16">
-          <div className="p-6 bg-white rounded-lg shadow-sm">
-            <h3 className="text-xl font-semibold mb-2">Dogs</h3>
-            <p className="text-gray-600">Loyal companions ready to join your family</p>
-          </div>
-          <div className="p-6 bg-white rounded-lg shadow-sm">
-            <h3 className="text-xl font-semibold mb-2">Cats</h3>
-            <p className="text-gray-600">Independent friends looking for a cozy home</p>
-          </div>
-          <div className="p-6 bg-white rounded-lg shadow-sm">
-            <h3 className="text-xl font-semibold mb-2">Small Pets</h3>
-            <p className="text-gray-600">Rabbits and more seeking loving care</p>
+        <div className="bg-white rounded-lg shadow-sm p-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Why Adopt?</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Save a Life</h3>
+              <p className="text-gray-600">
+                When you adopt, you're giving an animal a second chance at happiness and opening up space for another rescue.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Find Your Match</h3>
+              <p className="text-gray-600">Our team helps you find the perfect companion that fits your lifestyle and family.</p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Health & Care</h3>
+              <p className="text-gray-600">All our animals are vaccinated, health-checked, and ready for their new home.</p>
+            </div>
           </div>
         </div>
       </div>

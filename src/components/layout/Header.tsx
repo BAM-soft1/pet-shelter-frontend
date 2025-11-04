@@ -18,7 +18,7 @@ export const Header = () => {
           <ul className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-8">
             <li>
               <NavLink
-                to="/"
+                to="/animals"
                 className={({ isActive }) =>
                   `text-lg font-medium transition-colors ${isActive ? "text-indigo-600" : "text-gray-700 hover:text-indigo-600"}`
                 }

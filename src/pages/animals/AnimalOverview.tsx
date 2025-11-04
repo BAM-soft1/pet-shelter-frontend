@@ -15,7 +15,7 @@ export default function AnimalOverview() {
     setTimeout(() => {
       setAnimals(mockAnimals);
       setLoading(false);
-    }, 500);
+    }, 100);
   }, []);
 
   const openModal = (animal: Animal) => {
