@@ -43,7 +43,7 @@ export default function AnimalOverview() {
   return (
     <MainLayout>
       <div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
           {animals.map((animal) => (
             <Card key={animal.animal_id} className="overflow-hidden cursor-pointer transition-all hover:shadow-lg" onClick={() => openModal(animal)}>
               <div className="relative aspect-4/3 overflow-hidden bg-muted">
