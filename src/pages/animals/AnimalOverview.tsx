@@ -3,6 +3,8 @@ import MainLayout from "../../components/layout/MainLayout";
 import AnimalDetailModal from "./AnimalDetailModal";
 import type { Animal } from "../../types/types";
 import { mockAnimals } from "../../data/mockData";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export default function AnimalOverview() {
   const [animals, setAnimals] = useState<Animal[]>([]);
@@ -32,7 +34,7 @@ export default function AnimalOverview() {
     return (
       <MainLayout>
         <div className="text-center py-12">
-          <p className="text-gray-600">Loading animals...</p>
+          <p className="text-muted-foreground">Loading animals...</p>
         </div>
       </MainLayout>
     );
@@ -43,42 +45,59 @@ export default function AnimalOverview() {
       <div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {animals.map((animal) => (
-            <button key={animal.animal_id} onClick={() => openModal(animal)} className="text-left">
-              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow h-full">
-                <div className="h-48 bg-linear-to-br from-indigo-100 to-purple-100 flex items-center justify-center">
-                  <span className="text-3xl font-bold text-indigo-600">{animal.species}</span>
-                </div>
-
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-2xl font-bold text-gray-800">{animal.name}</h3>
-                    <span className="text-sm bg-gray-100 px-2 py-1 rounded capitalize">{animal.sex}</span>
+            <Card key={animal.animal_id} className="overflow-hidden cursor-pointer transition-all hover:shadow-lg" onClick={() => openModal(animal)}>
+              <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+                {animal.image_url ? (
+                  <img src={animal.image_url} alt={animal.name} className="w-full h-full object-cover object-center" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-primary/10 to-primary/5">
+                    <span className="text-4xl font-bold text-primary/60">{animal.species}</span>
                   </div>
-
-                  <p className="text-gray-600 mb-2">
-                    {animal.breed || animal.species} • {animal.age_years} years old
-                  </p>
-
-                  <div className="flex items-center gap-2 mb-4">
-                    {animal.has_required_vaccines ? (
-                      <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded">Vaccinated</span>
-                    ) : (
-                      <span className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Needs vaccines</span>
-                    )}
-                  </div>
-
-                  <div className="flex justify-between items-center mt-4">
-                    <span className="text-2xl font-bold text-indigo-600">${animal.price}</span>
-                  </div>
-                </div>
+                )}
               </div>
-            </button>
+
+              <CardHeader className="pb-3">
+                <div className="flex justify-between items-start gap-2">
+                  <h3 className="text-xl font-bold">{animal.name}</h3>
+                  <Badge variant="secondary" className="capitalize">
+                    {animal.sex}
+                  </Badge>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {animal.breed || animal.species} • {animal.age_years} {animal.age_years === 1 ? "year" : "years"} old
+                </p>
+              </CardHeader>
+
+              <CardContent className="pb-3">
+                <div className="flex items-center gap-2">
+                  {animal.has_required_vaccines ? (
+                    <Badge variant="default" className="bg-green-500 hover:bg-green-600">
+                      ✓ Vaccinated
+                    </Badge>
+                  ) : (
+                    <Badge variant="default" className="bg-yellow-500 hover:bg-yellow-600">
+                      ⚠ Needs vaccines
+                    </Badge>
+                  )}
+                  <Badge variant="outline" className="capitalize">
+                    {animal.status}
+                  </Badge>
+                </div>
+              </CardContent>
+
+              <CardFooter className="pt-3">
+                <div className="w-full flex justify-between items-center">
+                  <span className="text-2xl font-bold text-primary">${animal.price}</span>
+                  <span className="text-xs text-muted-foreground">Click for details</span>
+                </div>
+              </CardFooter>
+            </Card>
           ))}
         </div>
 
         {animals.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-600">No animals available at the moment.</p>
+            <p className="text-muted-foreground">No animals available at the moment.</p>
           </div>
         )}
 

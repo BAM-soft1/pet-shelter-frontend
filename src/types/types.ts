@@ -11,6 +11,7 @@ type Animal = {
   price: number;
   has_required_vaccines: boolean;
   adoption_status: string;
+  image_url?: string;
 };
 
 type User = {

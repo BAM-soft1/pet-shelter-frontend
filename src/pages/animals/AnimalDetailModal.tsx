@@ -1,6 +1,7 @@
-import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
 import type { Animal } from "../../types/types";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 type AnimalDetailModalProps = {
   animal: Animal | null;
@@ -9,82 +10,88 @@ type AnimalDetailModalProps = {
 };
 
 export default function AnimalDetailModal({ animal, isOpen, onClose }: AnimalDetailModalProps) {
+  if (!animal) return null;
+
   return (
-    <Dialog open={isOpen} onClose={onClose} className="relative z-50">
-      <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="text-3xl">{animal.name}</DialogTitle>
+          <DialogDescription>
+            {animal.breed || animal.species} • {animal.age_years} {animal.age_years === 1 ? "year" : "years"} old
+          </DialogDescription>
+        </DialogHeader>
 
-      <div className="fixed inset-0 flex items-center justify-center p-4">
-        <DialogPanel className="mx-auto max-w-3xl w-full bg-white rounded-lg shadow-xl max-h-[90vh] overflow-y-auto">
-          {animal && (
-            <>
-              <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-                <DialogTitle className="text-2xl font-bold text-gray-800">{animal.name}</DialogTitle>
-                <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
-                  <XMarkIcon className="w-6 h-6" />
-                </button>
+        <div className="space-y-6">
+          {/* Image */}
+          <div className="relative h-96 overflow-hidden rounded-lg bg-muted">
+            {animal.image_url ? (
+              <img src={animal.image_url} alt={animal.name} className="w-full h-full object-cover object-center" />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-primary/10 to-primary/5">
+                <span className="text-6xl font-bold text-primary/60">{animal.species}</span>
               </div>
+            )}
+          </div>
 
-              <div className="p-6">
-                <div className="h-64 bg-linear-to-br from-indigo-100 to-purple-100 flex items-center justify-center rounded-lg mb-6">
-                  <span className="text-6xl font-bold text-indigo-600">{animal.species}</span>
-                </div>
+          {/* Price */}
+          <div>
+            <span className="text-3xl font-bold text-primary">${animal.price}</span>
+          </div>
 
-                <div className="mb-6">
-                  <p className="text-xl text-gray-600 mb-4">
-                    {animal.breed || animal.species} • {animal.age_years} years old
-                  </p>
-                  <span className="text-3xl font-bold text-indigo-600">${animal.price}</span>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6 mb-8">
-                  <div className="space-y-3">
-                    <div>
-                      <span className="font-semibold text-gray-700">Sex:</span>
-                      <span className="ml-2 text-gray-600 capitalize">{animal.sex}</span>
-                    </div>
-                    <div>
-                      <span className="font-semibold text-gray-700">Status:</span>
-                      <span className="ml-2 text-gray-600 capitalize">{animal.status}</span>
-                    </div>
-                    <div>
-                      <span className="font-semibold text-gray-700">Intake Date:</span>
-                      <span className="ml-2 text-gray-600">{new Date(animal.intake_date).toLocaleDateString()}</span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <div>
-                      <span className="font-semibold text-gray-700">Birth Date:</span>
-                      <span className="ml-2 text-gray-600">{new Date(animal.birth_date).toLocaleDateString()}</span>
-                    </div>
-                    <div>
-                      <span className="font-semibold text-gray-700">Vaccinations:</span>
-                      {animal.has_required_vaccines ? (
-                        <span className="ml-2 text-sm bg-green-100 text-green-800 px-2 py-1 rounded">Vaccinated</span>
-                      ) : (
-                        <span className="ml-2 text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Needs vaccines</span>
-                      )}
-                    </div>
-                    <div>
-                      <span className="font-semibold text-gray-700">Adoption Status:</span>
-                      <span className="ml-2 text-gray-600">{animal.adoption_status}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <button className="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors flex-1">
-                    Apply for Adoption
-                  </button>
-                  <button className="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors">
-                    Contact Us
-                  </button>
-                </div>
+          {/* Details Grid */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Sex</p>
+                <Badge variant="secondary" className="capitalize mt-1">
+                  {animal.sex}
+                </Badge>
               </div>
-            </>
-          )}
-        </DialogPanel>
-      </div>
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Status</p>
+                <Badge variant="outline" className="capitalize mt-1">
+                  {animal.status}
+                </Badge>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Intake Date</p>
+                <p className="text-sm mt-1">{new Date(animal.intake_date).toLocaleDateString()}</p>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Birth Date</p>
+                <p className="text-sm mt-1">{new Date(animal.birth_date).toLocaleDateString()}</p>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Vaccinations</p>
+                {animal.has_required_vaccines ? (
+                  <Badge variant="default" className="bg-green-500 hover:bg-green-600 mt-1">
+                    ✓ Vaccinated
+                  </Badge>
+                ) : (
+                  <Badge variant="default" className="bg-yellow-500 hover:bg-yellow-600 mt-1">
+                    ⚠ Needs vaccines
+                  </Badge>
+                )}
+              </div>
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Adoption Status</p>
+                <p className="text-sm mt-1">{animal.adoption_status}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <DialogFooter className="flex-col sm:flex-row gap-2 w-full">
+          <Button variant="outline" onClick={onClose} className="flex-1 w-full">
+            Close
+          </Button>
+          <Button className="flex-1 w-full">Apply for Adoption</Button>
+        </DialogFooter>
+      </DialogContent>
     </Dialog>
   );
 }

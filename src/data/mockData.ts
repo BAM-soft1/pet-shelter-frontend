@@ -14,6 +14,7 @@ export const mockAnimals: Animal[] = [
     price: 150,
     has_required_vaccines: true,
     adoption_status: "Ready for adoption",
+    image_url: "https://images.unsplash.com/photo-1633722715463-d30f4f325e24?w=400&h=400&fit=crop",
   },
   {
     animal_id: 2,
@@ -28,6 +29,7 @@ export const mockAnimals: Animal[] = [
     price: 100,
     has_required_vaccines: true,
     adoption_status: "Ready for adoption",
+    image_url: "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?w=400&h=400&fit=crop",
   },
   {
     animal_id: 5,
@@ -42,6 +44,7 @@ export const mockAnimals: Animal[] = [
     price: 200,
     has_required_vaccines: true,
     adoption_status: "Ready for adoption",
+    image_url: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&h=400&fit=crop",
   },
   {
     animal_id: 6,
@@ -56,5 +59,6 @@ export const mockAnimals: Animal[] = [
     price: 50,
     has_required_vaccines: false,
     adoption_status: "Needs vaccinations",
+    image_url: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=400&h=400&fit=crop",
   },
 ];
