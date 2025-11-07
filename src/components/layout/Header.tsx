@@ -38,6 +38,17 @@ export const Header = () => {
                 About us
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/admin"
+                className={({ isActive }) =>
+                  `text-lg font-medium transition-colors ${isActive ? "text-indigo-600" : "text-gray-700 hover:text-indigo-600"}`
+                }
+                onClick={closeMenu}
+              >
+                Admin
+              </NavLink>
+            </li>
           </ul>
         </nav>
         <button

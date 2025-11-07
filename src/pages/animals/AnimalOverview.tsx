@@ -46,7 +46,7 @@ export default function AnimalOverview() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {animals.map((animal) => (
             <Card key={animal.animal_id} className="overflow-hidden cursor-pointer transition-all hover:shadow-lg" onClick={() => openModal(animal)}>
-              <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+              <div className="relative aspect-4/3 overflow-hidden bg-muted">
                 {animal.image_url ? (
                   <img src={animal.image_url} alt={animal.name} className="w-full h-full object-cover object-center" />
                 ) : (
@@ -72,11 +72,11 @@ export default function AnimalOverview() {
                 <div className="flex items-center gap-2">
                   {animal.has_required_vaccines ? (
                     <Badge variant="default" className="bg-green-500 hover:bg-green-600">
-                      ✓ Vaccinated
+                      Vaccinated
                     </Badge>
                   ) : (
                     <Badge variant="default" className="bg-yellow-500 hover:bg-yellow-600">
-                      ⚠ Needs vaccines
+                      Needs vaccines
                     </Badge>
                   )}
                   <Badge variant="outline" className="capitalize">

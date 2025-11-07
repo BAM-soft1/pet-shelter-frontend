@@ -69,11 +69,11 @@ export default function AnimalDetailModal({ animal, isOpen, onClose }: AnimalDet
                 <p className="text-sm font-medium text-muted-foreground">Vaccinations</p>
                 {animal.has_required_vaccines ? (
                   <Badge variant="default" className="bg-green-500 hover:bg-green-600 mt-1">
-                    ✓ Vaccinated
+                    Vaccinated
                   </Badge>
                 ) : (
                   <Badge variant="default" className="bg-yellow-500 hover:bg-yellow-600 mt-1">
-                    ⚠ Needs vaccines
+                    Needs vaccines
                   </Badge>
                 )}
               </div>
