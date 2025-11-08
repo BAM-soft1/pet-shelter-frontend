@@ -31,7 +31,7 @@ export default function Login() {
   return (
     <MainLayout>
       <div className="flex min-h-[calc(100vh-200px)] w-full items-center justify-center p-6 md:p-10">
-        <div className="w-full max-w-sm">
+        <div className="w-full max-w-md">
           <LoginForm onSubmit={handleSubmit} error={error} isLoading={isLoading} />
         </div>
       </div>
