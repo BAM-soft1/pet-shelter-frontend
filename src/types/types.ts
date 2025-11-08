@@ -1,17 +1,28 @@
-type Animal = {
-  animal_id: number;
+// Backend entity types
+type Species = {
+  id: number;
   name: string;
-  species: string;
-  breed: string | null;
-  birth_date: string;
-  age_years: number;
-  sex: "male" | "female" | "unknown";
-  intake_date: string;
-  status: "available" | "adopted" | "fostered" | "deceased";
+};
+
+type Breed = {
+  id: number;
+  species: Species;
+  name: string;
+};
+
+// Animal type matching backend AnimalDTOResponse
+type Animal = {
+  id: number;
+  name: string;
+  sex: string;
+  species: Species;
+  breed: Breed | null;
+  birthDate: string; // ISO date string
+  intakeDate: string; // ISO date string
+  status: string; // Note: capitalized in backend (matches Java field name)
   price: number;
-  has_required_vaccines: boolean;
-  adoption_status: string;
-  image_url?: string;
+  isActive: boolean;
+  imageUrl?: string; // Optional field for frontend
 };
 
 type User = {

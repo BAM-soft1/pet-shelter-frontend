@@ -2,6 +2,7 @@ import type { Animal } from "../../types/types";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import calculateAge from "@/utils/calculateAge";
 
 type AnimalDetailModalProps = {
   animal: Animal | null;
@@ -12,24 +13,26 @@ type AnimalDetailModalProps = {
 export default function AnimalDetailModal({ animal, isOpen, onClose }: AnimalDetailModalProps) {
   if (!animal) return null;
 
+  const age = calculateAge(animal.birthDate);
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-3xl">{animal.name}</DialogTitle>
           <DialogDescription>
-            {animal.breed || animal.species} • {animal.age_years} {animal.age_years === 1 ? "year" : "years"} old
+            {animal.breed?.name || animal.species.name} • {age} {age === 1 ? "year" : "years"} old
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-6">
           {/* Image */}
           <div className="relative h-96 overflow-hidden rounded-lg bg-muted">
-            {animal.image_url ? (
-              <img src={animal.image_url} alt={animal.name} className="w-full h-full object-cover object-center" />
+            {animal.imageUrl ? (
+              <img src={animal.imageUrl} alt={animal.name} className="w-full h-full object-cover object-center" />
             ) : (
               <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-primary/10 to-primary/5">
-                <span className="text-6xl font-bold text-primary/60">{animal.species}</span>
+                <span className="text-6xl font-bold text-primary/60">{animal.species.name}</span>
               </div>
             )}
           </div>
@@ -56,30 +59,22 @@ export default function AnimalDetailModal({ animal, isOpen, onClose }: AnimalDet
               </div>
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Intake Date</p>
-                <p className="text-sm mt-1">{new Date(animal.intake_date).toLocaleDateString()}</p>
+                <p className="text-sm mt-1">{new Date(animal.intakeDate).toLocaleDateString()}</p>
               </div>
             </div>
 
             <div className="space-y-4">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Birth Date</p>
-                <p className="text-sm mt-1">{new Date(animal.birth_date).toLocaleDateString()}</p>
+                <p className="text-sm mt-1">{new Date(animal.birthDate).toLocaleDateString()}</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Vaccinations</p>
-                {animal.has_required_vaccines ? (
-                  <Badge variant="default" className="bg-green-500 hover:bg-green-600 mt-1">
-                    Vaccinated
-                  </Badge>
-                ) : (
-                  <Badge variant="default" className="bg-yellow-500 hover:bg-yellow-600 mt-1">
-                    Needs vaccines
-                  </Badge>
-                )}
+                <p className="text-sm font-medium text-muted-foreground">Species</p>
+                <p className="text-sm mt-1">{animal.species.name}</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Adoption Status</p>
-                <p className="text-sm mt-1">{animal.adoption_status}</p>
+                <p className="text-sm font-medium text-muted-foreground">Breed</p>
+                <p className="text-sm mt-1">{animal.breed?.name || "Mixed breed"}</p>
               </div>
             </div>
           </div>
