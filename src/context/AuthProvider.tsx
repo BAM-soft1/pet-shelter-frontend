@@ -44,8 +44,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const signIn = async (credentials: LoginRequest) => {
     const response = await authProvider.signIn(credentials);
 
-    // Store token
+    // Store token and expiry time
     localStorage.setItem("token", response.token);
+    const expiresAt = Date.now() + response.expiresInSeconds * 1000; // Calculate absolute expiry timestamp
+    localStorage.setItem("tokenExpiresAt", expiresAt.toString());
 
     // Fetch full user details
     const userDetails = await authProvider.getCurrentUser(response.token);
@@ -87,6 +89,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     setUsername(null);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("tokenExpiresAt");
   };
 
   function isLoggedIn() {
@@ -101,9 +104,22 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const token = getToken();
     const storedUser = localStorage.getItem("user");
+    const tokenExpiresAt = localStorage.getItem("tokenExpiresAt");
 
     if (token && storedUser) {
       try {
+        // Check if token is already expired
+        if (tokenExpiresAt) {
+          const expiryTime = parseInt(tokenExpiresAt);
+          const now = Date.now();
+          
+          if (now >= expiryTime) {
+            // Token already expired, clear everything
+            signOut();
+            return;
+          }
+        }
+
         // Verify token by fetching current user
         authProvider
           .getCurrentUser(token)
@@ -111,9 +127,16 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
             setUser(freshUser);
             setUsername(`${freshUser.firstName} ${freshUser.lastName}`);
 
-            // Try to schedule logout (we don't have exact expiry time, so we'll set a reasonable timeout)
-            // In production, we could to store the expiry time in localStorage
-            scheduleLogout(token, 3600); // Default 1 hour
+            // Calculate remaining time until expiry
+            if (tokenExpiresAt) {
+              const expiryTime = parseInt(tokenExpiresAt);
+              const now = Date.now();
+              const remainingSeconds = Math.floor((expiryTime - now) / 1000);
+              scheduleLogout(token, remainingSeconds);
+            } else {
+              // Fallback if expiry time not stored
+              scheduleLogout(token, 900);
+            }
           })
           .catch(() => {
             // Token is invalid, clear everything
