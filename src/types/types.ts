@@ -20,7 +20,7 @@ type User = {
   first_name: string;
   last_name: string;
   phone: string | null;
-  role: "admin" | "staff" | "veterinarian" | "adopter" | "foster";
+  role: "ADMIN" | "STAFF" | "VETERINARIAN" | "ADOPTER" | "FOSTER" | "USER";
 };
 
 type Adoption = {
@@ -35,4 +35,34 @@ type Adoption = {
   days_since_adoption: number;
 };
 
-export type { Animal, User, Adoption };
+// Auth Types
+type AuthUser = {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone: string | null;
+  isActive: boolean;
+  role: "ADMIN" | "STAFF" | "VETERINARIAN" | "ADOPTER" | "FOSTER" | "USER";
+};
+
+type LoginRequest = {
+  email: string;
+  password: string;
+};
+
+type RegisterRequest = {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone?: string | null;
+  password: string;
+};
+
+type AuthResponse = {
+  accessToken: string;
+  tokenType: string;
+  expiresInSeconds: number;
+};
+
+export type { Animal, User, Adoption, AuthUser, LoginRequest, RegisterRequest, AuthResponse };
