@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
+import { useAuth } from "../../context/AuthProvider";
+import AuthStatus from "../../security/AuthStatus";
 
 export const Header = () => {
+  const auth = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -38,17 +41,20 @@ export const Header = () => {
                 About us
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/admin"
-                className={({ isActive }) =>
-                  `text-lg font-medium transition-colors ${isActive ? "text-indigo-600" : "text-gray-700 hover:text-indigo-600"}`
-                }
-                onClick={closeMenu}
-              >
-                Admin
-              </NavLink>
-            </li>
+            {auth?.isLoggedInAs(["admin", "staff"]) && (
+              <li>
+                <NavLink
+                  to="/admin"
+                  className={({ isActive }) =>
+                    `text-lg font-medium transition-colors ${isActive ? "text-indigo-600" : "text-gray-700 hover:text-indigo-600"}`
+                  }
+                  onClick={closeMenu}
+                >
+                  Admin
+                </NavLink>
+              </li>
+            )}
+            <AuthStatus closeMenu={closeMenu} />
           </ul>
         </nav>
         <button
