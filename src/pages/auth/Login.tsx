@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
 import { LoginForm } from "@/components/login-form";
 import MainLayout from "../../components/layout/MainLayout";
+import { getErrorMessage } from "../../services/fetchUtils";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -14,6 +15,13 @@ export default function Login() {
 
   const from = (location.state as { from?: Location })?.from?.pathname || "/";
 
+  // Redirect if already logged in
+  useEffect(() => {
+    if (auth?.isLoggedIn()) {
+      navigate("/", { replace: true });
+    }
+  }, [auth, navigate]);
+
   const handleSubmit = async (email: string, password: string) => {
     setError("");
     setIsLoading(true);
@@ -22,7 +30,7 @@ export default function Login() {
       await auth?.signIn({ email, password });
       navigate(from, { replace: true });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to login. Please check your credentials.");
+      setError(getErrorMessage(err));
     } finally {
       setIsLoading(false);
     }

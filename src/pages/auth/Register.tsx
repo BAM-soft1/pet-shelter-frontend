@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
 import { SignupForm } from "@/components/signup-form";
 import MainLayout from "../../components/layout/MainLayout";
+import { getErrorMessage } from "../../services/fetchUtils";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -10,6 +11,13 @@ export default function Register() {
 
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (auth?.isLoggedIn()) {
+      navigate("/", { replace: true });
+    }
+  }, [auth, navigate]);
 
   const handleSubmit = async (data: { email: string; firstName: string; lastName: string; phone?: string | null; password: string }) => {
     setError("");
@@ -19,7 +27,7 @@ export default function Register() {
       await auth?.signUp(data);
       navigate("/", { replace: true });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to register. Please try again.");
+      setError(getErrorMessage(err));
     } finally {
       setIsLoading(false);
     }
