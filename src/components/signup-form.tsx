@@ -6,9 +6,15 @@ import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui
 import { Input } from "@/components/ui/input";
 
 interface SignupFormProps {
-  onSubmit: (data: { email: string; firstName: string; lastName: string; phone?: string; password: string }) => Promise<void>;
-  error?: string;
-  isLoading?: boolean;
+  onSubmit: (data: {
+    email: string
+    firstName: string
+    lastName: string
+    phone?: string | null
+    password: string
+  }) => Promise<void>
+  error?: string
+  isLoading?: boolean
 }
 
 export function SignupForm({ onSubmit, error, isLoading = false }: SignupFormProps) {
@@ -69,7 +75,7 @@ export function SignupForm({ onSubmit, error, isLoading = false }: SignupFormPro
       email,
       firstName: firstName.trim(),
       lastName: lastName.trim(),
-      phone: phone.trim() || undefined,
+      phone: phone.trim() || null,
       password,
     });
   };

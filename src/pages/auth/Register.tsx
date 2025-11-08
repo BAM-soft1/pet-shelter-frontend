@@ -11,7 +11,7 @@ export default function Register() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (data: { email: string; firstName: string; lastName: string; phone?: string; password: string }) => {
+  const handleSubmit = async (data: { email: string; firstName: string; lastName: string; phone?: string | null; password: string }) => {
     setError("");
     setIsLoading(true);
 

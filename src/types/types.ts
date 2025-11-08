@@ -55,7 +55,7 @@ type RegisterRequest = {
   email: string;
   firstName: string;
   lastName: string;
-  phone?: string;
+  phone?: string | null;
   password: string;
 };
 
