@@ -20,7 +20,7 @@ type User = {
   first_name: string;
   last_name: string;
   phone: string | null;
-  role: "admin" | "staff" | "veterinarian" | "adopter" | "foster";
+  role: "ADMIN" | "STAFF" | "VETERINARIAN" | "ADOPTER" | "FOSTER" | "USER";
 };
 
 type Adoption = {
@@ -43,7 +43,7 @@ type AuthUser = {
   lastName: string;
   phone: string | null;
   isActive: boolean;
-  role: "admin" | "staff" | "veterinarian" | "adopter" | "foster";
+  role: "ADMIN" | "STAFF" | "VETERINARIAN" | "ADOPTER" | "FOSTER" | "USER";
 };
 
 type LoginRequest = {

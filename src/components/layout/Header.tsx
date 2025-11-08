@@ -41,7 +41,7 @@ export const Header = () => {
                 About us
               </NavLink>
             </li>
-            {auth?.isLoggedInAs(["admin", "staff"]) && (
+            {auth?.isLoggedInAs(["ADMIN", "STAFF"]) && (
               <li>
                 <NavLink
                   to="/admin"

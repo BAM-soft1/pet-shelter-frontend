@@ -11,7 +11,6 @@ const authAxios = axios.create({
 });
 
 export interface LoginResponse {
-  user: AuthUser;
   token: string;
   expiresInSeconds: number;
 }
@@ -21,21 +20,9 @@ export const authProvider = {
     const response = await authAxios.post<AuthResponse>("/login", credentials);
     const authData = response.data;
 
-    // Get user info from the token or make a separate call if needed
-    // For now, we'll decode basic info from the response
-    // You might need to add a /me endpoint to get full user details
     return {
       token: authData.accessToken,
       expiresInSeconds: authData.expiresInSeconds,
-      user: {
-        id: 0, // Will be populated from /me endpoint
-        email: credentials.email,
-        firstName: "",
-        lastName: "",
-        phone: null,
-        isActive: true,
-        role: "adopter",
-      },
     };
   },
 
