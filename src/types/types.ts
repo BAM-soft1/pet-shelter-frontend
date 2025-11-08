@@ -19,10 +19,22 @@ type Animal = {
   breed: Breed | null;
   birthDate: string; // ISO date string
   intakeDate: string; // ISO date string
-  status: string; // Note: capitalized in backend (matches Java field name)
+  status: string;
   price: number;
   isActive: boolean;
   imageUrl?: string; // Optional field for frontend
+};
+
+type AnimalRequest = {
+  name: string;
+  sex: string;
+  species: Species;
+  breed: Breed | null;
+  birthDate: string; // ISO date string
+  intakeDate: string; // ISO date string
+  status: string;
+  price: number;
+  imageUrl?: string;
 };
 
 type User = {
@@ -76,4 +88,4 @@ type AuthResponse = {
   expiresInSeconds: number;
 };
 
-export type { Animal, User, Adoption, AuthUser, LoginRequest, RegisterRequest, AuthResponse };
+export type { Animal, AnimalRequest, Species, Breed, User, Adoption, AuthUser, LoginRequest, RegisterRequest, AuthResponse };

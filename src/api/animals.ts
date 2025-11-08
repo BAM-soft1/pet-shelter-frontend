@@ -1,5 +1,5 @@
 import axiosWithAuth from "../security/axios";
-import type { Animal } from "../types/types";
+import type { Animal, AnimalRequest } from "../types/types";
 import { API_URL } from "../settings";
 
 const API_URL_ANIMALS = `${API_URL}/animal`; // Note: backend uses /api/animal
@@ -15,7 +15,7 @@ export const AnimalService = {
     return response.data;
   },
 
-  createAnimal: async (animal: Omit<Animal, "id">): Promise<Animal> => {
+  createAnimal: async (animal: AnimalRequest): Promise<Animal> => {
     const response = await axiosWithAuth.post(`${API_URL_ANIMALS}/add`, animal);
     return response.data;
   },
