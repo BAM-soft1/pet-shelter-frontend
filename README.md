@@ -87,7 +87,7 @@ cd BackendPetShelter
 ./mvnw clean install
 ```
 
-3. Opret .env-fil
+3. Konfigurér følgende env variabler:
 
 ```
 JDBC_DATABASE_URL=jdbc:mysql://localhost:3306/pet_shelter
