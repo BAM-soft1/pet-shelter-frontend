@@ -72,7 +72,9 @@ npm run dev
 Frontend kører typisk på:
 👉 http://localhost:5173
 
-**Backend**
+### Backend
+
+---
 
 1. Klon backend-repoet
 
