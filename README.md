@@ -90,12 +90,11 @@ cd BackendPetShelter
 3. Opret .env-fil
 
 ```
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=din_adgangskode
-DB_NAME=petshelter
-JWT_SECRET=hemmelig_nøgle
-PORT=3000
+JDBC_DATABASE_URL=jdbc:mysql://localhost:3306/pet_shelter
+JDBC_USERNAME=username
+JDBC_PASSWORD=password
+JWT_ACCESS_SECRET=test-access-secret-random-random-random-random-value123123
+JWT_REFRESH_SECRET=test-access-secret-random-random-random-random-value123123
 ```
 
 4. Opret MySQL-database
