@@ -67,7 +67,7 @@ npm install
 VITE_DEV_API_BASE_URL=http://localhost:8080/api
 ```
 
-5. Start udviklingsserver
+4. Start udviklingsserver
 
 ```
 npm run dev
