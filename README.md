@@ -57,11 +57,15 @@ Applikationen gør det muligt for brugere at se, adoptere og registrere kæledyr
 
 2. Installer afhængigheder
 
+```
 npm install
+```
 
-3. Opret .env-fil
+3. Opret .env-fil og tilføj følgende:
 
-VITE_DEV_API_BASE_URL=http://localhost:3000/api
+```
+VITE_DEV_API_BASE_URL=http://localhost:8080/api
+```
 
 5. Start udviklingsserver
 
