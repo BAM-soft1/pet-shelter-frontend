@@ -7,16 +7,21 @@ Applikationen gør det muligt for brugere at se, adoptere og registrere kæledyr
 
 ## Repository & Deployede Versioner
 
-- **Frontend (GitHub):** [https://github.com/BAM-soft1/pet-shelter-frontend](https://github.com/BAM-soft1/pet-shelter-frontend)  
-- **Backend (GitHub):** [https://github.com/BAM-soft1/BackendPetShelter](https://github.com/BAM-soft1/BackendPetShelter)  
-- **Deployed Frontend:** [https://pet-shelter-frontend-i82h.onrender.com/]  
-- **Deployed Backend (API):** [bam-shelter-backend-bggeadccfkhnbydg.germanywestcentral-01.azurewebsites.net]
+- [**Frontend repository:**](https://github.com/BAM-soft1/pet-shelter-frontend)
+- [**Backend repository:** ](https://github.com/BAM-soft1/BackendPetShelter)
+- [**Deployed Frontend:**](https://pet-shelter-frontend-i82h.onrender.com/)
+- [**Deployed Backend:**](https://bam-shelter-backend-bggeadccfkhnbydg.germanywestcentral-01.azurewebsites.net/api/animal)
+
+## API Docs:
+
+- [**Swagger docs**](https://bam-shelter-backend-bggeadccfkhnbydg.germanywestcentral-01.azurewebsites.net/swagger-ui/index.html)
 
 ---
 
 ## Teknologier
 
 ### Frontend
+
 - **React** + **Vite**
 - **TypeScript**
 - **Tailwind CSS**
@@ -25,6 +30,7 @@ Applikationen gør det muligt for brugere at se, adoptere og registrere kæledyr
 - **Miljøvariabler (.env)** til API-konfiguration
 
 ### Backend
+
 - **Node.js** + **Express**
 - **MySQL** database
 - **Mysql-driver**
@@ -33,29 +39,21 @@ Applikationen gør det muligt for brugere at se, adoptere og registrere kæledyr
 - **CORS** middleware
 
 ### Database
-- **MySQL** til persistent lagring af data  
-- Administreret via **DataGrip & Intellij's Tool "Endpoint"**
+
+- **MySQL** til persistent lagring af data
 
 ---
 
-## ⚙️ Funktionalitet
-
-### For brugere
-- Opret og log ind på brugerprofil  
-- Se alle dyr, der er tilgængelige for adoption  
-
-### For administratorer
-- Log ind som admin
-- Se Admin dashboard 
-
----
-
-###  Frontend
+### Frontend
 
 1. **Klon projektet**
+
    ```bash
    git clone https://github.com/BAM-soft1/pet-shelter-frontend.git
    cd pet-shelter-frontend
+
+
+   ```
 
 2. Installer afhængigheder
 
@@ -63,11 +61,13 @@ npm install
 
 3. Opret .env-fil
 
-VITE_API_BASE_URL=http://localhost:3000/api
+VITE_DEV_API_BASE_URL=http://localhost:3000/api
 
 5. Start udviklingsserver
 
+```
 npm run dev
+```
 
 Frontend kører typisk på:
 👉 http://localhost:5173
@@ -76,23 +76,27 @@ Frontend kører typisk på:
 
 1. Klon backend-repoet
 
+```
 git clone https://github.com/BAM-soft1/BackendPetShelter.git
 cd BackendPetShelter
-
+```
 
 2. Installer afhængigheder
 
-npm install
+```
+./mvnw clean install
+```
 
 3. Opret .env-fil
 
+```
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=din_adgangskode
 DB_NAME=petshelter
 JWT_SECRET=hemmelig_nøgle
 PORT=3000
-
+```
 
 4. Opret MySQL-database
 
@@ -106,8 +110,9 @@ Kør migrations eller lad ORM’en oprette tabeller ved første kørsel
 
 5. Start backend-server
 
-npm run dev
+```
+./mvnw spring-boot:run
+```
 
 API’et kører som standard på:
 👉 http://localhost:3000
-
